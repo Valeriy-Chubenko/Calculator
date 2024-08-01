@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <math.h>
+
+// Объявление функций
+void add();
+void subtract();
+void multiply();
+void divide();
+void power();
+void square_root();
+void logarithm();
+
+int main() {
+    int choice;
+
+    do {
+        printf("Выберите операцию:\n");
+        printf("1. Сложение\n");
+        printf("2. Вычитание\n");
+        printf("3. Умножение\n");
+        printf("4. Деление\n");
+        printf("5. Возведение в степень\n");
+        printf("6. Квадратный корень\n");
+        printf("7. Логарифм\n");
+        printf("8. Выход\n");
+        printf("Введите ваш выбор: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                add();
+                break;
+            case 2:
+                subtract();
+                break;
+            case 3:
+                multiply();
+                break;
+            case 4:
+                divide();
+                break;
+            case 5:
+                power();
+                break;
+            case 6:
+                square_root();
+                break;
+            case 7:
+                logarithm();
+                break;
+            case 8:
+                printf("Выход из программы.\n");
+                break;
+            default:
+                printf("Неверный выбор, попробуйте снова.\n");
+        }
+
+        printf("\n");
+    } while (choice != 8);
+
+    return 0;
+}
+
+void add() {
+    double a, b;
+    printf("Введите два числа для сложения: ");
+    scanf("%lf %lf", &a, &b);
+    printf("Результат: %.2lf\n", a + b);
+}
+
+void subtract() {
+    double a, b;
+    printf("Введите два числа для вычитания: ");
+    scanf("%lf %lf", &a, &b);
+    printf("Результат: %.2lf\n", a - b);
+}
+
+void multiply() {
+    double a, b;
+    printf("Введите два числа для умножения: ");
+    scanf("%lf %lf", &a, &b);
+    printf("Результат: %.2lf\n", a * b);
+}
+
+void divide() {
+    double a, b;
+    printf("Введите два числа для деления: ");
+    scanf("%lf %lf", &a, &b);
+    if (b != 0) {
+        printf("Результат: %.2lf\n", a / b);
+    } else {
+        printf("Ошибка: деление на ноль.\n");
+    }
+}
+
+void power() {
+    double base, exp;
+    printf("Введите основание и показатель степени: ");
+    scanf("%lf %lf", &base, &exp);
+    printf("Результат: %.2lf\n", pow(base, exp));
+}
+
+void square_root() {
+    double num;
+    printf("Введите число для вычисления квадратного корня: ");
+    scanf("%lf", &num);
+    if (num >= 0) {
+        printf("Результат: %.2lf\n", sqrt(num));
+    } else {
+        printf("Ошибка: введено отрицательное число.\n");
+    }
+}
+
+void logarithm() {
+    double num;
+    printf("Введите число для вычисления логарифма: ");
+    scanf("%lf", &num);
+    if (num > 0) {
+        printf("Результат: %.2lf\n", log(num));
+    } else {
+        printf("Ошибка: логарифм от неположительного числа не определен.\n");
+    }
+}
