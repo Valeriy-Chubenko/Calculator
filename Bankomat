@@ -1,0 +1,125 @@
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+using namespace std;
+
+struct Account {
+    string pin;
+    double balance;
+};
+
+unordered_map<string, Account> accounts;
+
+bool login(string &accountNumber);
+void checkBalance(const string &accountNumber);
+void withdrawMoney(const string &accountNumber);
+void depositMoney(const string &accountNumber);
+void changePIN(const string &accountNumber);
+
+int main() {
+    // Создание тестового аккаунта
+    cout << "Creating test account...\n";
+    accounts["12345678"] = {"1234", 1000.0};
+    cout << "Test account created.\n";
+
+    string accountNumber;
+    if (login(accountNumber)) {
+        int choice;
+        do {
+            cout << "\n--- ATM Menu ---\n";
+            cout << "1. Check Balance\n";
+            cout << "2. Withdraw Money\n";
+            cout << "3. Deposit Money\n";
+            cout << "4. Change PIN\n";
+            cout << "5. Exit\n";
+            cout << "Enter your choice: ";
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    checkBalance(accountNumber);
+                    break;
+                case 2:
+                    withdrawMoney(accountNumber);
+                    break;
+                case 3:
+                    depositMoney(accountNumber);
+                    break;
+                case 4:
+                    changePIN(accountNumber);
+                    break;
+                case 5:
+                    cout << "Thank you for using the ATM. Goodbye!\n";
+                    break;
+                default:
+                    cout << "Invalid choice. Please try again.\n";
+            }
+        } while (choice != 5);
+    } else {
+        cout << "Login failed. Exiting...\n";
+    }
+
+    return 0;
+}
+
+bool login(string &accountNumber) {
+    cout << "Enter account number: ";
+    cin >> accountNumber;
+
+    if (accounts.find(accountNumber) != accounts.end()) {
+        string pin;
+        cout << "Enter PIN: ";
+        cin >> pin;
+        if (accounts[accountNumber].pin == pin) {
+            return true;
+        } else {
+            cout << "Invalid PIN.\n";
+            return false;
+        }
+    } else {
+        cout << "Account not found.\n";
+        return false;
+    }
+}
+
+void checkBalance(const string &accountNumber) {
+    cout << "Current balance: $" << accounts[accountNumber].balance << endl;
+}
+
+void withdrawMoney(const string &accountNumber) {
+    double amount;
+    cout << "Enter amount to withdraw: $";
+    cin >> amount;
+
+    if (amount > accounts[accountNumber].balance) {
+        cout << "Insufficient funds.\n";
+    } else {
+        accounts[accountNumber].balance -= amount;
+        cout << "Withdrawal successful. New balance: $" << accounts[accountNumber].balance << endl;
+    }
+}
+
+void depositMoney(const string &accountNumber) {
+    double amount;
+    cout << "Enter amount to deposit: $";
+    cin >> amount;
+
+    accounts[accountNumber].balance += amount;
+    cout << "Deposit successful. New balance: $" << accounts[accountNumber].balance << endl;
+}
+
+void changePIN(const string &accountNumber) {
+    string oldPIN, newPIN;
+    cout << "Enter old PIN: ";
+    cin >> oldPIN;
+
+    if (accounts[accountNumber].pin == oldPIN) {
+        cout << "Enter new PIN: ";
+        cin >> newPIN;
+        accounts[accountNumber].pin = newPIN;
+        cout << "PIN change successful.\n";
+    } else {
+        cout << "Old PIN is incorrect.\n";
+    }
+}
