@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    double hourlyWage, regularHours, overtimeHours, taxRate;
+
+    cout << "Введите почасовую оплату: ";
+    cin >> hourlyWage;
+
+    cout << "Введите количество отработанных часов: ";
+    cin >> regularHours;
+
+    cout << "Введите количество часов переработки: ";
+    cin >> overtimeHours;
+
+    cout << "Введите налоговую ставку (в процентах): ";
+    cin >> taxRate;
+
+    double overtimeWage = hourlyWage * 1.5;
+    double regularPay = hourlyWage * regularHours;
+    double overtimePay = overtimeWage * overtimeHours;
+    double grossPay = regularPay + overtimePay;
+
+    double taxAmount = grossPay * (taxRate / 100);
+    double netPay = grossPay - taxAmount;
+
+    cout << "Количество отработанных часов: " << regularHours << " часов" << endl;
+    cout << "Количество часов переработки: " << overtimeHours << " часов" << endl;
+    cout << "Сумма до вычета налогов: $" << grossPay << endl;
+    cout << "Сумма после вычета налогов: $" << netPay << endl;
+    cout << "Общее количество часов: " << (regularHours + overtimeHours) << " часов" << endl;
+
+    return 0;
+}
