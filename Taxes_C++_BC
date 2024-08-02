@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+// Функция для расчета федерального налога
+double calculateFederalTax(double income) {
+    if (income <= 53359) {
+        return income * 0.15;
+    } else if (income <= 106717) {
+        return 53359 * 0.15 + (income - 53359) * 0.205;
+    } else if (income <= 165430) {
+        return 53359 * 0.15 + (106717 - 53359) * 0.205 + (income - 106717) * 0.26;
+    } else if (income <= 235675) {
+        return 53359 * 0.15 + (106717 - 53359) * 0.205 + (165430 - 106717) * 0.26 + (income - 165430) * 0.29;
+    } else {
+        return 53359 * 0.15 + (106717 - 53359) * 0.205 + (165430 - 106717) * 0.26 + (235675 - 165430) * 0.29 + (income - 235675) * 0.33;
+    }
+}
+
+// Функция для расчета провинциального налога
+double calculateProvincialTax(double income) {
+    if (income <= 43070) {
+        return income * 0.0506;
+    } else if (income <= 86141) {
+        return 43070 * 0.0506 + (income - 43070) * 0.077;
+    } else if (income <= 98901) {
+        return 43070 * 0.0506 + (86141 - 43070) * 0.077 + (income - 86141) * 0.105;
+    } else if (income <= 120094) {
+        return 43070 * 0.0506 + (86141 - 43070) * 0.077 + (98901 - 86141) * 0.105 + (income - 98901) * 0.1229;
+    } else if (income <= 162832) {
+        return 43070 * 0.0506 + (86141 - 43070) * 0.077 + (98901 - 86141) * 0.105 + (120094 - 98901) * 0.1229 + (income - 120094) * 0.147;
+    } else {
+        return 43070 * 0.0506 + (86141 - 43070) * 0.077 + (98901 - 86141) * 0.105 + (120094 - 98901) * 0.1229 + (162832 - 120094) * 0.147 + (income - 162832) * 0.168;
+    }
+}
+
+int main() {
+    double income;
+
+    // Ввод годового дохода
+    cout << "Введите ваш годовой доход: ";
+    cin >> income;
+
+    // Расчет налогов
+    double federalTax = calculateFederalTax(income);
+    double provincialTax = calculateProvincialTax(income);
+    double totalTax = federalTax + provincialTax;
+    double afterTaxIncome = income - totalTax;
+
+    // Вывод результатов
+    cout << "Федеральный налог: $" << federalTax << endl;
+    cout << "Провинциальный налог: $" << provincialTax << endl;
+    cout << "Общий налог: $" << totalTax << endl;
+    cout << "Доход после уплаты налогов: $" << afterTaxIncome << endl;
+
+    return 0;
+}
